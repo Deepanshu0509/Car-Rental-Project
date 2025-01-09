@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { NgZorroModule } from '../../../../NgZorroModule';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
+import { AdminService } from '../../services/admin.service';
+import { Router } from '@angular/router';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 @Component({
   selector: 'app-post-car',
   standalone: true,
@@ -21,7 +24,10 @@ export class PostCarComponent {
   listOfColor = ["Red", "White", "Blue", "Black", "Orange", "Grey", "Silver"];
   listOfTransmission = ["Manual", "Automatic"];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, 
+    private adminService: AdminService,
+    private router: Router,
+  private notification: NzNotificationService)  {
     this.postCarForm = this.fb.group({
       name: [null, Validators.required],
       brand: [null, Validators.required],
@@ -36,6 +42,25 @@ export class PostCarComponent {
 
   postCar() {
     console.log(this.postCarForm.value);
+    const formData: FormData = new FormData();
+    formData.append('image', this.selectedFile);
+    formData.append('name', this.postCarForm.value.name);
+    formData.append('brand', this.postCarForm.value.brand);
+    formData.append('type', this.postCarForm.value.type);
+    formData.append('transmission', this.postCarForm.value.transmission);
+    formData.append('color', this.postCarForm.value.color);
+    formData.append('price', this.postCarForm.value.price);
+    formData.append('description', this.postCarForm.value.description);
+    formData.append('year', this.postCarForm.value.year);
+    // console.log(formData);
+    this.adminService.postCar(formData).subscribe((res) => {
+      console.log(res);
+      this.notification.success('Success', 'Car posted successfully', {nzDuration: 5000});
+      this.router.navigate(['/admin/dashboard']);
+    }, (error) => {
+      console.log(error);
+      this.notification.error('Error', 'Error while posting car', {nzDuration: 5000});
+    });
   }
 
   onFileSelected(event: any) {
