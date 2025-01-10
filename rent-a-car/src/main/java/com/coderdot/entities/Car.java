@@ -1,5 +1,6 @@
 package com.coderdot.entities;
 
+import com.coderdot.dtos.CarDto;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -103,4 +104,20 @@ public class Car {
     public void setImage(byte[] image) {
         this.image = image;
     }
+
+    public CarDto getCarDto(){
+        CarDto carDto = new CarDto();
+        carDto.setId(id);
+        carDto.setName(name);
+        carDto.setDescription(description);
+        carDto.setColor(color);
+        carDto.setTransmission(transmission);
+        carDto.setType(type);
+        carDto.setPrice(price);
+        carDto.setModelYear(modelYear);
+        carDto.setBrand(brand);
+        carDto.setReturnedImage(image);
+        return carDto;
+    }
+
 }
