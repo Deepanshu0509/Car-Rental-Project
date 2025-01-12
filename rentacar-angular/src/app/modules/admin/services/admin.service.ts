@@ -28,6 +28,12 @@ export class AdminService {
     });
   }
 
+  deleteCar(carId: number) : Observable<any> {
+    return this.http.delete(`${BASIC_URL}/api/admin/car/${carId}`, {
+      headers: this.createAuthorizationHeader()
+    });
+  }
+
   createAuthorizationHeader() {
     let authHeaders: HttpHeaders = new HttpHeaders();
     return authHeaders.set(

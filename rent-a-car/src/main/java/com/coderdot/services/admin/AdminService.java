@@ -8,4 +8,6 @@ public interface AdminService {
     boolean postCar(CarDto carDto);
 
     List<CarDto> getAllCars();
+
+    void deleteCar(Long carId);
 }
