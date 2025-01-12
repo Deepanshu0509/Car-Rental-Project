@@ -44,20 +44,22 @@ export class PostCarComponent {
     console.log(this.postCarForm.value);
     const formData: FormData = new FormData();
     formData.append('image', this.selectedFile);
-    formData.append('name', this.postCarForm.value.name);
-    formData.append('brand', this.postCarForm.value.brand);
-    formData.append('type', this.postCarForm.value.type);
-    formData.append('transmission', this.postCarForm.value.transmission);
-    formData.append('color', this.postCarForm.value.color);
-    formData.append('price', this.postCarForm.value.price);
-    formData.append('description', this.postCarForm.value.description);
-    formData.append('year', this.postCarForm.value.year);
-    // console.log(formData);
-    this.adminService.postCar(formData).subscribe((res) => {
+    formData.append('brand', this.postCarForm.get('brand')?.value);
+    formData.append('name', this.postCarForm.get('name')?.value);
+    formData.append('type', this.postCarForm.get('type')?.value);
+    formData.append('color', this.postCarForm.get('color')?.value);
+    formData.append('modelYear', this.postCarForm.get('year')?.value);
+    formData.append('transmission', this.postCarForm.get('transmission')?.value);
+    formData.append('description', this.postCarForm.get('description')?.value);
+    formData.append('price', this.postCarForm.get('price')?.value);
+    formData.append('employee', this.postCarForm.get('employee')?.value);
+    formData.append('dealership', this.postCarForm.get('dealership')?.value);
+    // console.log(formData.get('year'));
+    this.adminService.postCar(formData).subscribe((res: any) => {
       console.log(res);
       this.notification.success('Success', 'Car posted successfully', {nzDuration: 5000});
       this.router.navigate(['/admin/dashboard']);
-    }, (error) => {
+    }, (error: any) => {
       console.log(error);
       this.notification.error('Error', 'Error while posting car', {nzDuration: 5000});
     });
