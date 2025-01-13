@@ -34,6 +34,12 @@ export class AdminService {
     });
   }
 
+  getCarById(carId: number) : Observable<any> {
+    return this.http.get(`${BASIC_URL}/api/admin/car/${carId}`, {
+      headers: this.createAuthorizationHeader()
+    });
+  }
+
   createAuthorizationHeader() {
     let authHeaders: HttpHeaders = new HttpHeaders();
     return authHeaders.set(
