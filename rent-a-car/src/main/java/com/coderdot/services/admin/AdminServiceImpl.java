@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -51,5 +53,27 @@ public class AdminServiceImpl implements AdminService {
     public CarDto getCarById(Long carId) {
         Optional<Car> optionalCar = carRepository.findById(carId);
         return optionalCar.map(Car::getCarDto).orElse(null);
+    }
+
+    @Override
+    public boolean updateCar(Long carId, CarDto carDto) throws IOException {
+        Optional<Car> optionalCar = carRepository.findById(carId);
+        if(optionalCar.isPresent()){
+            Car existingCar = optionalCar.get();
+            existingCar.setName(carDto.getName());
+            existingCar.setBrand(carDto.getBrand());
+            existingCar.setColor(carDto.getColor());
+            existingCar.setPrice(carDto.getPrice());
+            existingCar.setType(carDto.getType());
+            existingCar.setDescription(carDto.getDescription());
+            existingCar.setModelYear(carDto.getModelYear());
+            existingCar.setTransmission(carDto.getTransmission());
+            if(carDto.getImage() != null){
+                existingCar.setImage(carDto.getImage().getBytes());
+            }
+            carRepository.save(existingCar);
+            return true;
+        }
+        return false;
     }
 }
