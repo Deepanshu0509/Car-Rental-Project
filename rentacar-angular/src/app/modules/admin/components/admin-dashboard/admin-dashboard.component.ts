@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { NgFor } from '@angular/common';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [NgFor, CommonModule, NzButtonModule],
+  imports: [NgFor, CommonModule, NzButtonModule, RouterLink],
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.scss'
 })

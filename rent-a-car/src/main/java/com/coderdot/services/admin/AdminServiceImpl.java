@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,5 +45,11 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void deleteCar(Long carId) {
         carRepository.deleteById(carId);
+    }
+
+    @Override
+    public CarDto getCarById(Long carId) {
+        Optional<Car> optionalCar = carRepository.findById(carId);
+        return optionalCar.map(Car::getCarDto).orElse(null);
     }
 }
