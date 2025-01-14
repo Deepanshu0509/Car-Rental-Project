@@ -66,7 +66,7 @@ export class UpdateCarComponent {
     formData.append('name', this.updateForm.get('name')?.value);
     formData.append('type', this.updateForm.get('type')?.value);
     formData.append('color', this.updateForm.get('color')?.value);
-    formData.append('modelYear', this.updateForm.get('year')?.value);
+    formData.append('modelYear', this.updateForm.get('modelYear')?.value);
     formData.append('transmission', this.updateForm.get('transmission')?.value);
     formData.append('description', this.updateForm.get('description')?.value);
     formData.append('price', this.updateForm.get('price')?.value);
