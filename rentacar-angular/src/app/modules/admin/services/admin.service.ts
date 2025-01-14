@@ -40,6 +40,13 @@ export class AdminService {
     });
   }
 
+  updateCar(carId: number, carDto: any){
+    return this.http.put(`${BASIC_URL}/api/admin/car/${carId}`, carDto, {
+      headers: this.createAuthorizationHeader()
+    });
+
+  }
+
   createAuthorizationHeader() {
     let authHeaders: HttpHeaders = new HttpHeaders();
     return authHeaders.set(
