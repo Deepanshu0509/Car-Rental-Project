@@ -1,13 +1,12 @@
 package com.coderdot.controllers;
 
+import com.coderdot.dtos.BookACarDto;
 import com.coderdot.dtos.CarDto;
 import com.coderdot.services.customer.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,5 +29,14 @@ public class CustomerController {
             return ResponseEntity.ok(carDto);
         }
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/car/book/{carId}")
+    public ResponseEntity<?> BookACar(@PathVariable long carId, @RequestBody BookACarDto bookACarDto){
+        boolean success = customerService.bookACar(carId, bookACarDto);
+        if(success){
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 }
