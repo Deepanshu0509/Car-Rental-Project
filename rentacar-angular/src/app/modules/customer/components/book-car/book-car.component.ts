@@ -20,7 +20,7 @@ export class BookCarComponent {
       carId: number = this.activated.snapshot.params["id"];
       bookACarForm!: FormGroup;
       isSpinning: boolean = false;
-      dateFormat = 'yyyydd-mm-dd';
+      dateFormat = 'yyyy-MM-dd';
 
       constructor(private customerService: CustomerService,
         private message: NzMessageService,
