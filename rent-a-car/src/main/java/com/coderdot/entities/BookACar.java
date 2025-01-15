@@ -1,5 +1,6 @@
 package com.coderdot.entities;
 
+import com.coderdot.dtos.BookACarDto;
 import com.coderdot.enums.BookCarStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -97,5 +98,19 @@ public class BookACar {
 
     public void setCar(Car car) {
         this.car = car;
+    }
+
+    public BookACarDto getBookACarDto(){
+        BookACarDto bookACarDto = new BookACarDto();
+        bookACarDto.setId(id);
+        bookACarDto.setFromDate(fromDate);
+        bookACarDto.setToDate(toDate);
+        bookACarDto.setDays(days);
+        bookACarDto.setAmount(amount);
+        bookACarDto.setBookCarStatus(bookCarStatus);
+        bookACarDto.setEmail(user.getEmail());
+        bookACarDto.setUsername(user.getUsername());
+        bookACarDto.setUserId(user.getId());
+        return bookACarDto;
     }
 }
