@@ -1,7 +1,10 @@
 package com.coderdot.services.admin;
 
+import com.coderdot.dtos.BookACarDto;
 import com.coderdot.dtos.CarDto;
+import com.coderdot.entities.BookACar;
 import com.coderdot.entities.Car;
+import com.coderdot.repositories.BookACarRepository;
 import com.coderdot.repositories.CarRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,9 @@ import java.util.stream.Collectors;
 public class AdminServiceImpl implements AdminService {
     @Autowired
     private CarRepository carRepository;
+
+    @Autowired
+    private BookACarRepository bookACarRepository;
 
     @Override
     public boolean postCar(CarDto carDto) {
@@ -75,5 +81,10 @@ public class AdminServiceImpl implements AdminService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<BookACarDto> getBookings() {
+        return bookACarRepository.findAll().stream().map(BookACar::getBookACarDto).collect(Collectors.toList());
     }
 }

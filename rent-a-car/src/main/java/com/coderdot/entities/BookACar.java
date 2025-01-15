@@ -109,7 +109,7 @@ public class BookACar {
         bookACarDto.setAmount(amount);
         bookACarDto.setBookCarStatus(bookCarStatus);
         bookACarDto.setEmail(user.getEmail());
-        bookACarDto.setUsername(user.getUsername());
+        bookACarDto.setUsername(user.getName());
         bookACarDto.setUserId(user.getId());
         return bookACarDto;
     }
