@@ -1,5 +1,6 @@
 package com.coderdot.services.admin;
 
+import com.coderdot.dtos.BookACarDto;
 import com.coderdot.dtos.CarDto;
 
 import java.io.IOException;
@@ -15,4 +16,6 @@ public interface AdminService {
     CarDto getCarById(Long carId);
 
     boolean updateCar(Long carId, CarDto carDto) throws IOException;
+
+    List<BookACarDto> getBookings();
 }
