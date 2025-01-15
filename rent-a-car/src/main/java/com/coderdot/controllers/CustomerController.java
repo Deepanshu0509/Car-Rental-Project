@@ -39,4 +39,9 @@ public class CustomerController {
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
+
+    @GetMapping("/car/bookings/{userId}")
+    public ResponseEntity<?> getBookingsByUserId(@PathVariable Long userId){
+        return ResponseEntity.ok(customerService.getBookingsByUserId(userId));
+    }
 }
