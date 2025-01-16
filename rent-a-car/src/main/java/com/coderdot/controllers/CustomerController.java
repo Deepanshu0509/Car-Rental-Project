@@ -2,6 +2,7 @@ package com.coderdot.controllers;
 
 import com.coderdot.dtos.BookACarDto;
 import com.coderdot.dtos.CarDto;
+import com.coderdot.dtos.SearchCarDto;
 import com.coderdot.services.customer.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,5 +44,10 @@ public class CustomerController {
     @GetMapping("/car/bookings/{userId}")
     public ResponseEntity<?> getBookingsByUserId(@PathVariable Long userId){
         return ResponseEntity.ok(customerService.getBookingsByUserId(userId));
+    }
+
+    @PostMapping("/car/search")
+    public ResponseEntity<?> searchCar(@RequestBody SearchCarDto searchCarDto){
+        return ResponseEntity.ok(customerService.searchCar(searchCarDto));
     }
 }
