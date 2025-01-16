@@ -59,6 +59,12 @@ export class AdminService {
     });
   }
 
+  searchCar(searchCarDto: any) : Observable<any> {
+    return this.http.post(`${BASIC_URL}/api/admin/car/search`, searchCarDto, {
+      headers: this.createAuthorizationHeader()
+    });
+  }
+
   createAuthorizationHeader() {
     let authHeaders: HttpHeaders = new HttpHeaders();
     return authHeaders.set(

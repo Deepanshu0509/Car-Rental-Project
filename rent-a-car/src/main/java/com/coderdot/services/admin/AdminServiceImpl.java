@@ -2,6 +2,8 @@ package com.coderdot.services.admin;
 
 import com.coderdot.dtos.BookACarDto;
 import com.coderdot.dtos.CarDto;
+import com.coderdot.dtos.CarDtoList;
+import com.coderdot.dtos.SearchCarDto;
 import com.coderdot.entities.BookACar;
 import com.coderdot.entities.Car;
 import com.coderdot.enums.BookCarStatus;
@@ -9,6 +11,8 @@ import com.coderdot.repositories.BookACarRepository;
 import com.coderdot.repositories.CarRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.Option;
@@ -105,5 +109,27 @@ public class AdminServiceImpl implements AdminService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public CarDtoList searchCar(SearchCarDto searchCarDto) {
+        Car car = new Car();
+        car.setId(null);
+        car.setBrand(searchCarDto.getBrand());
+        car.setType(searchCarDto.getType());
+        car.setTransmission(searchCarDto.getTransmission());
+        car.setColor(searchCarDto.getColor());
+        ExampleMatcher exampleMatcher = ExampleMatcher.matchingAll()
+                .withIgnoreNullValues()
+                .withIgnorePaths("id")
+                .withMatcher("brand", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase(true))
+                .withMatcher("type", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase(true))
+                .withMatcher("transmission", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase(true))
+                .withMatcher("color", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase(true));
+        Example<Car> carExample = Example.of(car, exampleMatcher);
+        List<Car> cars = carRepository.findAll(carExample);
+        CarDtoList carDtoList = new CarDtoList();
+        carDtoList.setCarDtoList(cars.stream().map(Car::getCarDto).collect(Collectors.toList()));
+        return carDtoList;
     }
 }
