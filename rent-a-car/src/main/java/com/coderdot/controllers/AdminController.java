@@ -1,6 +1,7 @@
 package com.coderdot.controllers;
 
 import com.coderdot.dtos.CarDto;
+import com.coderdot.dtos.SearchCarDto;
 import com.coderdot.services.admin.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +69,11 @@ public class AdminController {
         boolean success = adminService.changeBookingStatus(bookingId, status);
         if(success) return ResponseEntity.ok().build();
         return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping("/car/search")
+    public ResponseEntity<?> searchCar(@RequestBody SearchCarDto searchCarDto){
+        return ResponseEntity.ok(adminService.searchCar(searchCarDto));
     }
 
 }
