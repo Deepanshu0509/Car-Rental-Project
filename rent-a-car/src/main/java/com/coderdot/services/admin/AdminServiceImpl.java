@@ -114,15 +114,18 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public CarDtoList searchCar(SearchCarDto searchCarDto) {
         Car car = new Car();
+        car.setId(null);
         car.setBrand(searchCarDto.getBrand());
         car.setType(searchCarDto.getType());
         car.setTransmission(searchCarDto.getTransmission());
         car.setColor(searchCarDto.getColor());
         ExampleMatcher exampleMatcher = ExampleMatcher.matchingAll()
-                .withMatcher("brand", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase())
-                .withMatcher("type", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase())
-                .withMatcher("transmission", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase())
-                .withMatcher("color", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase());
+                .withIgnoreNullValues()
+                .withIgnorePaths("id")
+                .withMatcher("brand", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase(true))
+                .withMatcher("type", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase(true))
+                .withMatcher("transmission", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase(true))
+                .withMatcher("color", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase(true));
         Example<Car> carExample = Example.of(car, exampleMatcher);
         List<Car> cars = carRepository.findAll(carExample);
         CarDtoList carDtoList = new CarDtoList();
